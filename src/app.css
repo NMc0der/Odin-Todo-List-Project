@@ -24,7 +24,7 @@ h1 {
   /* left: 0; */
   /* position: absolute; */
   translate: -100%;
-  transition: translate var(--animation-timing);
+  transition: all var(--animation-timing);
   border: 1px solid red;
 
   padding: 0.5rem 1rem;
@@ -32,7 +32,7 @@ h1 {
   background-color: var(--foreground);
   /* max-width: 10rem; */
   height: 100vh;
-  width: 80px;
+  width: 20%;
   margin: 0;
   color: white;
 }
@@ -49,20 +49,12 @@ main {
 }
 
 .todo-holder {
-  position: absolute;
   height: 100vh;
   border: 1px solid red;
   transition: all var(--animation-timing);
-  left: 80px;
-  /* flex-grow: 1; */
-
-  /* min-height: 100vh;
-  position: relative;
-  top: 0;
-  
-
-  transition: all var(--animation-timing);
-  width: calc(100% - 80px); */
+  display: flex;
+  justify-content: space-between;
+  width: calc(100%);
 }
 
 :root {
@@ -119,7 +111,5 @@ main {
 
 .hamburger-menu:has(input:checked) ~ .todo-holder {
   background-color: red;
-  translate: 322%;
-
-  transition: all var(--animation-timing);
+  width: 80%;
 }
