@@ -1,0 +1,125 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  margin-left: 8px;
+}
+
+.content {
+  border: 1px solid red;
+  height: 100vh;
+  /* display: grid; */
+  display: flex;
+  flex-direction: column;
+}
+
+.side-bar {
+  /* left: 0; */
+  /* position: absolute; */
+  translate: -100%;
+  transition: translate var(--animation-timing);
+  border: 1px solid red;
+
+  padding: 0.5rem 1rem;
+  padding-top: calc(var(--hamburger-height) + 2rem);
+  background-color: var(--foreground);
+  /* max-width: 10rem; */
+  height: 100vh;
+  width: 80px;
+  margin: 0;
+  color: white;
+}
+
+header {
+  flex: 1;
+}
+
+main {
+  flex-grow: 10;
+  /* display: grid;
+  grid-template-columns: 1fr 4fr; */
+  display: flex;
+}
+
+.todo-holder {
+  position: absolute;
+  height: 100vh;
+  border: 1px solid red;
+  transition: all var(--animation-timing);
+  left: 80px;
+  /* flex-grow: 1; */
+
+  /* min-height: 100vh;
+  position: relative;
+  top: 0;
+  
+
+  transition: all var(--animation-timing);
+  width: calc(100% - 80px); */
+}
+
+:root {
+  --bar-width: 60px;
+  --bar-height: 8px;
+  --hamburger-gap: 6px;
+  --foreground: #333;
+  --background: white;
+  --hamburger-marginT: 90px;
+  --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
+  --animation-timing: 200ms ease-in-out;
+}
+
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hamburger-gap);
+  cursor: pointer;
+  width: max-content;
+  position: absolute;
+  top: var(--hamburger-marginT);
+  left: 10px;
+  z-index: 2;
+}
+
+.hamburger-menu::before,
+.hamburger-menu::after,
+.hamburger-menu input {
+  content: "";
+  width: var(--bar-width);
+  height: var(--bar-height);
+  background-color: var(--foreground);
+  border-radius: 9999px;
+
+  transition: all var(--animation-timing);
+}
+
+.hamburger-menu input {
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  pointer-events: none;
+}
+
+.hamburger-menu:has(input:checked) {
+  --foreground: white;
+}
+
+.hamburger-menu:has(input:checked) + .side-bar {
+  translate: 0%;
+  width: 250px;
+}
+
+.hamburger-menu:has(input:checked) ~ .todo-holder {
+  background-color: red;
+  translate: 322%;
+
+  transition: all var(--animation-timing);
+}
