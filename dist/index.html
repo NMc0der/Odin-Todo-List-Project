@@ -14,7 +14,7 @@
       </header>
       <main>
         <label class="hamburger-menu">
-          <input type="checkbox" />
+          <input checked type="checkbox" />
         </label>
         <div class="side-bar">
           <nav>
@@ -22,14 +22,128 @@
             <div>upcoming</div>
             <div>today</div>
             <div>week</div>
-            <button></button>
+            <h2>your projects</h2>
+            <button class="projec-add">Add project</button>
+            <div>default</div>
           </nav>
         </div>
         <div class="todo-holder">
-          <h2>Todo</h2>
-          <h3>hi</h3>
+          <div class="todos">
+            <h2>Todo</h2>
+            <h3>hi</h3>
+            <p class="todo">I am a todo</p>
+          </div>
+
+          <button data-modal-target="#modal" class="create-todo">
+            Create Todo
+          </button>
         </div>
+
+        <div class="modal active" id="modal">
+          <div class="modal-header">
+            <button data-close-button class="close-button">&times;</button>
+            <div class="title">YO</div>
+          </div>
+
+          <form class="todo-form" action="">
+            <div class="form-element">
+              <label for="todo">Todo</label>
+              <input id="description" name="todo" type="text" />
+            </div>
+
+            <div class="form-element">
+              <label for="date">Due Date</label>
+              <input id="date" name="date" type="date" />
+            </div>
+
+            <div class="form-element">
+              <label for="time">Time Due</label>
+              <input id="time" class="time" type="time" />
+            </div>
+
+            <!-- <div class="form-element">
+              <label for="run">runner</label>
+              <input name="run" type="text" />
+            </div> -->
+
+            <div class="form-element">
+              <label for="priority">Priority</label>
+              <select name="priority" id="priority">
+                <option value="1">Low</option>
+                <option value="2">Medium</option>
+                <option value="3">High</option>
+              </select>
+            </div>
+            <button class="todo-add">Add Todo</button>
+          </form>
+
+          <!-- <div class="modal-body">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis
+            repellendus officia, tenetur fugiat at in, ipsum, tempore aliquid
+            temporibus iusto nulla nobis sunt nihil dolores id nemo debitis sit
+            distinctio? Beatae pariatur sequi, ipsa tempore, aut odio incidunt
+            ad nam voluptatem non rerum quibusdam harum sapiente! Placeat, esse
+            nulla cupiditate ab quaerat aperiam magni, quam ducimus odio quasi
+            ut similique? Est et suscipit facilis velit minima accusantium, rem
+            totam iusto reprehenderit ab voluptatibus vero delectus porro id
+            doloremque commodi perferendis voluptatum omnis vel iste. Inventore
+            repudiandae neque maxime eveniet numquam. Dolor ducimus iusto rem
+            iure, dolorum consequuntur ullam itaque iste aliquid suscipit, vero,
+          </div> -->
+        </div>
+        <div id="overlay"></div>
       </main>
     </div>
   </body>
 </html>
+
+<!-- <button data-form-target="#form" class="newBook">NEW BOOK</button>
+
+    <div class="newBookForm form" id="form">
+      <div class="newBookHeader">
+        <button data-close-button class="close-btn">&times;</button>
+        <h2 class="formTitle">New Book!</h2>
+      </div>
+
+      <form class="bookForm" action="">
+        <div class="form-element">
+          <label for="newAuthor">Author</label>
+          <input
+            class="box"
+            type="text"
+            name="author"
+            id="newAuthor"
+            placeholder="Author"
+          />
+        </div>
+
+        <div class="form-element">
+          <label for="newTitle">Title</label>
+          <input
+            class="box"
+            type="text"
+            name="title"
+            id="newTitle"
+            placeholder="Title"
+          />
+        </div>
+
+        <div class="form-element">
+          <label for="numPages">Pages</label>
+          <input
+            class="box"
+            type="number"
+            name="numPages"
+            id="numPages"
+            placeholder="0"
+          />
+        </div>
+
+        <div class="form-element read">
+          <label for="hasRead">Read</label>
+          <input type="checkbox" name="hasRead" id="hasRead" value="hasRead" />
+        </div>
+        <button class="bookAdd">Add Book</button>
+      </form>
+    </div>
+    <div id="overlay"></div> -->
