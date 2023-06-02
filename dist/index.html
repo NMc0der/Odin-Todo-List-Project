@@ -18,8 +18,8 @@
         </label>
         <div class="side-bar">
           <nav>
-            <div>all</div>
-            <div>upcoming</div>
+            <button class="all-todo-tab tab">All</button>
+            <button class="upcoming-todo-tab">Upcoming</button>
             <div>today</div>
             <div>week</div>
             <h2>your projects</h2>
@@ -28,18 +28,18 @@
           </nav>
         </div>
         <div class="todo-holder">
+          <h2 class="tab-title">All Todo's</h2>
           <div class="todos">
-            <h2>Todo</h2>
             <h3>hi</h3>
             <p class="todo">I am a todo</p>
           </div>
 
-          <button data-modal-target="#modal" class="create-todo">
+          <button data-modal-target="#todo-form-modal" class="create-todo">
             Create Todo
           </button>
         </div>
 
-        <div class="modal active" id="modal">
+        <div class="modal active" id="todo-form-modal">
           <div class="modal-header">
             <button data-close-button class="close-button">&times;</button>
             <div class="title">YO</div>
@@ -47,8 +47,8 @@
 
           <form class="todo-form" action="">
             <div class="form-element">
-              <label for="todo">Todo</label>
-              <input id="description" name="todo" type="text" />
+              <label for="description">Todo</label>
+              <input id="description" name="description" type="text" />
             </div>
 
             <div class="form-element">
@@ -69,9 +69,9 @@
             <div class="form-element">
               <label for="priority">Priority</label>
               <select name="priority" id="priority">
-                <option value="1">Low</option>
-                <option value="2">Medium</option>
-                <option value="3">High</option>
+                <option value="Low Priority">Low</option>
+                <option value="Medium Priority">Medium</option>
+                <option value="High Priority">High</option>
               </select>
             </div>
             <button class="todo-add">Add Todo</button>
@@ -91,6 +91,104 @@
             iure, dolorum consequuntur ullam itaque iste aliquid suscipit, vero,
           </div> -->
         </div>
+
+        <div id="info-modal" class="modal">
+          <div class="modal-header">
+            <button data-close-button class="close-button">&times;</button>
+            <div class="title">YO</div>
+          </div>
+
+          <div class="modal-body">
+            <h3>Description:</h3>
+            <p class="description-text"></p>
+            <h3>Due Date:</h3>
+            <p class="due-date-text"></p>
+            <h3>Priority:</h3>
+            <p class="priority-text"></p>
+            <h3>Time Created:</h3>
+            <p class="time-created"></p>
+          </div>
+        </div>
+
+        <div id="edit-modal" class="modal">
+          <div class="modal-header">
+            <button data-close-button class="close-button">&times;</button>
+            <div class="title">Edit</div>
+          </div>
+
+          <form class="edit-form" action="">
+            <div class="form-element">
+              <label class="todo-lable" for="edit-todo"
+                >Todo <span class="current-data-text current-todo-text"></span
+              ></label>
+              <input
+                class="edit-todo"
+                id="edit-todo"
+                name="edit-todo"
+                type="text"
+              />
+            </div>
+
+            <div class="form-element">
+              <label class="date-lable" for="edit-date"
+                >Due Date
+                <span class="current-data-text current-date-text"></span
+              ></label>
+              <input
+                class="edit-date"
+                id="edit-date"
+                name="edit-date"
+                type="date"
+              />
+            </div>
+
+            <div class="form-element">
+              <label class="time-lable" for="edit-time"
+                >Time Due
+                <span class="current-data-text current-time-text"></span
+              ></label>
+              <input id="edit-time" class="edit-time" type="time" />
+            </div>
+
+            <!-- <div class="form-element">
+              <label for="run">runner</label>
+              <input name="run" type="text" />
+            </div> -->
+
+            <div class="form-element">
+              <label class="priority-lable" for="edit-priority"
+                >Priority
+                <span class="current-data-text current-priority-text"></span
+              ></label>
+              <select
+                class="edit-priority"
+                name="edit-priority"
+                id="edit-priority"
+              >
+                <option value="Low Priority">Low</option>
+                <option value="Medium Priority">Medium</option>
+                <option value="High Priority">High</option>
+              </select>
+            </div>
+            <button class="todo-add">Save Changes</button>
+          </form>
+        </div>
+
+        <div id="confirmation-modal" class="modal">
+          <div class="modal-header">
+            <button data-close-button class="close-button">&times;</button>
+            <h2 class="title">Todo Will Be Deleted!</h2>
+            <h3 class="warn-msg">Are you sure?</h3>
+          </div>
+
+          <div class="modal-body conirmation">
+            <div class="confirm-btns">
+              <button class="delete-confirm-btn confirm-btn">Yes</button>
+              <button class="cancle-confirm-btn confirm-btn">No</button>
+            </div>
+          </div>
+        </div>
+
         <div id="overlay"></div>
       </main>
     </div>

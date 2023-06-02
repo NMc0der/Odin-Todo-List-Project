@@ -1,40 +1,50 @@
 import "./app.css";
+import modal from "./modal";
 import submit from "./submit";
+import tabs from "./tabs";
 // const addTodoBtn = document.querySelector(".todo-add");
 
-const createTodoBtn = document.querySelectorAll("[data-modal-target]");
-const closeTodoBtn = document.querySelectorAll("[data-close-button]");
-const overlay = document.querySelector("#overlay");
+const todoForm = document.querySelector(".todo-form");
+const theTime = document.querySelector(".time");
 
-createTodoBtn.forEach((button) => {
-  button.addEventListener("click", () => {
-    const modal = document.querySelector(button.dataset.modalTarget);
-    openForm(modal);
-  });
-});
-
-overlay.addEventListener("click", () => {
-  const modals = document.querySelectorAll(".modal.active");
-  modals.forEach((modal) => {
-    closeForm(modal);
-  });
-});
-
-closeTodoBtn.forEach((button) => {
-  button.addEventListener("click", () => {
-    const modal = button.closest(".modal");
-    closeForm(modal);
-  });
-});
-
-function openForm(form) {
-  if (form == null) return;
-  form.classList.add("active");
-  overlay.classList.add("active");
+class Todo {
+  constructor(description, date, time, priority, createdDate) {
+    this.description = description;
+    this.date = date;
+    this.time = time;
+    this.priority = priority;
+    this.createdDate = createdDate;
+  }
 }
 
-function closeForm(form) {
-  if (form == null) return;
-  form.classList.remove("active");
-  overlay.classList.remove("active");
-}
+todoForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  // const formData = new FormData(todoForm);
+  // const data = Object.fromEntries(formData);
+
+  const description = document.querySelector("#description").value;
+  const date = document.querySelector("#date").value;
+  const formatedDate = format(parseISO(date), "MM/dd/yyyy");
+  console.log(formatedDate);
+  const priority = document.querySelector("#priority").value;
+  const time = DateTime.fromFormat(theTime.value, "HH:mm").toFormat("h:mm a");
+
+  const newTodo = new Todo(
+    description,
+    formatedDate,
+    time,
+    priority,
+    getCurrentTime()
+  );
+
+  allTodos.push(newTodo);
+  showTodos(allTodos);
+  console.log(allTodos);
+  generateTodos(allTodos);
+  const modal = document.querySelector("#todo-form-modal");
+  closeForm(modal);
+  // getTime(data);
+  // attatchTodo(data);
+  // allTodos.push(data);
+  // showTodos(allTodos);
+});
