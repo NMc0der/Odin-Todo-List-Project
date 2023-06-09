@@ -1,12 +1,14 @@
 import "./app.css";
-import modal from "./modal";
-import submit from "./submit";
-import tabs from "./tabs";
+import { DateTime } from "luxon";
+import { parseISO, format } from "date-fns";
+import modal, { closeForm } from "./modal";
+import submit, { generateTodos, allTodos, getSelectedArray } from "./submit";
+// import tabs, { getSelectedArray } from "./tabs";
 // const addTodoBtn = document.querySelector(".todo-add");
 
 const todoForm = document.querySelector(".todo-form");
 const theTime = document.querySelector(".time");
-
+const editModal = document.querySelector("#edit-modal");
 class Todo {
   constructor(description, date, time, priority, createdDate) {
     this.description = description;
@@ -38,13 +40,28 @@ todoForm.addEventListener("submit", (e) => {
   );
 
   allTodos.push(newTodo);
-  showTodos(allTodos);
+  //   showTodos(allTodos);
   console.log(allTodos);
-  generateTodos(allTodos);
-  const modal = document.querySelector("#todo-form-modal");
-  closeForm(modal);
+  const selected = getSelectedArray();
+  // console.log(typeof selected);
+  generateTodos(typeof selected === "function" ? selected() : selected);
+  const TodoFormModal = document.querySelector("#todo-form-modal");
+  closeForm(TodoFormModal);
+  console.log(selected);
   // getTime(data);
   // attatchTodo(data);
   // allTodos.push(data);
   // showTodos(allTodos);
+});
+
+const getCurrentTime = () => {
+  const date = new Date();
+  const DateFormated = format(date, "MM/dd/yyyy - h:mm a");
+  return DateFormated;
+};
+
+editModal.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const selected = getSelectedArray();
+  generateTodos(typeof selected === "function" ? selected() : selected);
 });
