@@ -371,8 +371,24 @@ const formatToTime = (x) => DateTime.fromFormat(x, "h:mm a").toFormat("HHmm");
 // );
 weekTodoTab.addEventListener("click", () => {
   console.log(weekFormat());
+  selectedArray = weekFormat;
+  generateTodos(weekFormat());
 });
 
 const weekFormat = () => {
   console.log("hiya");
+  allTodos.forEach((todo) => {
+    console.log(todo.date);
+    console.log(format(new Date(), "MM/dd/yyyy I"));
+    console.log(format(new Date(todo.date), "yyyyMMdd I"));
+  });
+
+  const weekTodos = allTodos.filter((todo) => {
+    const todoWeekNum = format(new Date(todo.date), "I");
+    const currentWeek = format(new Date(), "I");
+    return todoWeekNum === currentWeek;
+  });
+  weekTodos.sort((a, b) => formatToNumber(a) - formatToNumber(b));
+  return weekTodos;
+  // console.log(weekTodos);
 };
