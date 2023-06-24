@@ -23,8 +23,19 @@
             <div class="today-todo-tab">today</div>
             <div class="week-todo-tab">week</div>
             <h2>your projects</h2>
-            <button class="projec-add">Add project</button>
-            <div>default</div>
+            <button class="project-add">Add project</button>
+            <form id="project-add-form" class="mini-form" action="">
+              <input
+                class="name-project-inp"
+                placeholder="Name your project"
+                type="text"
+              />
+              <button type="submit" class="add-project-btn">ADD</button>
+              <button type="reset" class="cancle-project-btn">Cancle</button>
+            </form>
+            <div class="project-list">
+              <!-- <div class="default-project">default</div> -->
+            </div>
           </nav>
         </div>
         <div class="todo-holder">
@@ -48,17 +59,17 @@
           <form class="todo-form" action="">
             <div class="form-element">
               <label for="description">Todo</label>
-              <input id="description" name="description" type="text" />
+              <input required id="description" name="description" type="text" />
             </div>
 
             <div class="form-element">
               <label for="date">Due Date</label>
-              <input id="date" name="date" type="date" />
+              <input required id="date" name="date" type="date" />
             </div>
 
             <div class="form-element">
               <label for="time">Time Due</label>
-              <input id="time" class="time" type="time" />
+              <input required id="time" class="time" type="time" />
             </div>
 
             <!-- <div class="form-element">
@@ -177,7 +188,7 @@
         <div id="confirmation-modal" class="modal">
           <div class="modal-header">
             <button data-close-button class="close-button">&times;</button>
-            <h2 class="title">Todo Will Be Deleted!</h2>
+            <h2 class="confirmation-title">Todo Will Be Deleted!</h2>
             <h3 class="warn-msg">Are you sure?</h3>
           </div>
 

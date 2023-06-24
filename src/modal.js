@@ -13,9 +13,13 @@ createTodoBtn.forEach((button) => {
 
 overlay.addEventListener("click", () => {
   const modals = document.querySelectorAll(".modal.active");
+  // const miniForms = document.querySelectorAll(".mini-form.active");
   modals.forEach((modal) => {
     closeForm(modal);
   });
+  // miniForms.forEach((form) => {
+  //   closeMiniForm(form);
+  // });
 });
 
 closeTodoBtn.forEach((button) => {
@@ -35,4 +39,14 @@ function closeForm(form) {
   if (form == null) return;
   form.classList.remove("active");
   overlay.classList.remove("active");
+}
+
+function openMiniForm(form) {
+  form.classList.add("active");
+  overlay.classList.add("semi-active");
+}
+
+function closeMiniForm(form) {
+  form.classList.remove("active");
+  overlay.classList.remove("semi-active");
 }

@@ -1,4 +1,5 @@
-// import { parseISO, format } from "date-fns";
+import { DateTime } from "luxon";
+import { parseISO, format } from "date-fns";
 // import { allTodos, generateTodos } from "./submit";
 
 // export default () => {};
@@ -36,3 +37,9 @@
 //   );
 //   return upcomingTodos;
 // };
+
+const formatToNumber = (x) => {
+  const date = format(new Date(x.date), "yyyyMMdd");
+  const time = DateTime.fromFormat(x.time, "h:mm a").toFormat("HHmm");
+  return parseFloat(`${date}${time}`);
+};

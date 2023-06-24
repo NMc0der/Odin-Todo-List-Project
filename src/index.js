@@ -2,13 +2,35 @@ import "./app.css";
 import { DateTime } from "luxon";
 import { parseISO, format } from "date-fns";
 import modal, { closeForm } from "./modal";
-import submit, { generateTodos, allTodos, getSelectedArray } from "./submit";
+import submit, {
+  generateTodos,
+  allTodos,
+  getSelectedArray,
+  allProjects,
+  generateProjects,
+} from "./submit";
 // import tabs, { getSelectedArray } from "./tabs";
-// const addTodoBtn = document.querySelector(".todo-add");
+// const addTodoBtn = document.querySelector(".todo-add");\\
+let selected = getSelectedArray();
+
+// const myObjDesearialized = JSON.parse(localStorage.getItem("mainArray"));
+
+// myObjDesearialized.forEach((obj) => {
+//   allTodos.push(obj);
+// });
+
+// generateTodos(selected);
+
+// const myObjSeralized = JSON.stringify(selected);
+// localStorage.setItem("mainArray", myObjSeralized);
+
+generateTodos(typeof selected === "function" ? selected() : selected);
+generateProjects(allProjects);
 
 const todoForm = document.querySelector(".todo-form");
 const theTime = document.querySelector(".time");
 const editModal = document.querySelector("#edit-modal");
+
 class Todo {
   constructor(description, date, time, priority, createdDate) {
     this.description = description;
@@ -40,9 +62,23 @@ todoForm.addEventListener("submit", (e) => {
   );
 
   allTodos.push(newTodo);
+  // const myObjDesearialized = JSON.parse(localStorage.getItem("mainArray"));
+
+  const myObjSeralized = JSON.stringify(allTodos);
+
+  localStorage.setItem("mainArray", myObjSeralized);
+
+  console.log(myObjSeralized);
+  // console.log(myObjDesearialized);
+  console.log(selected);
   //   showTodos(allTodos);
   console.log(allTodos);
-  const selected = getSelectedArray();
+  selected = getSelectedArray();
+  if (typeof selected !== "function" && selected !== allTodos) {
+    selected.push(newTodo);
+    localStorage.setItem("projects", JSON.stringify(allProjects));
+    localStorage.setItem("mainArray", JSON.stringify(allTodos));
+  }
   // console.log(typeof selected);
   generateTodos(typeof selected === "function" ? selected() : selected);
   const TodoFormModal = document.querySelector("#todo-form-modal");
@@ -62,6 +98,8 @@ const getCurrentTime = () => {
 
 editModal.addEventListener("submit", (e) => {
   e.preventDefault();
-  const selected = getSelectedArray();
+  selected = getSelectedArray();
   generateTodos(typeof selected === "function" ? selected() : selected);
 });
+
+// console.log(myObjDesearialized);
