@@ -29,7 +29,7 @@ generateProjects(allProjects);
 
 const todoForm = document.querySelector(".todo-form");
 const theTime = document.querySelector(".time");
-const editModal = document.querySelector("#edit-modal");
+// const editModal = document.querySelector("#edit-modal");
 
 class Todo {
   constructor(description, date, time, priority, createdDate) {
@@ -96,10 +96,8 @@ const getCurrentTime = () => {
   return DateFormated;
 };
 
-editModal.addEventListener("submit", (e) => {
-  e.preventDefault();
-  selected = getSelectedArray();
-  generateTodos(typeof selected === "function" ? selected() : selected);
-});
-
-// console.log(myObjDesearialized);
+// editModal.addEventListener("submit", (e) => {
+//   e.preventDefault();
+//   selected = getSelectedArray();
+//   generateTodos(typeof selected === "function" ? selected() : selected);
+// });

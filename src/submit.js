@@ -4,6 +4,7 @@ import { parseISO, format } from "date-fns";
 import trashIcon from "./trash-can.png";
 import editIcon from "./edit.png";
 import { openForm, closeForm } from "./modal";
+import { todayFormat, weekFormat, upcomingFormat } from "./tabs";
 // import { selectedArray } from "./tabs";
 
 export default () => {};
@@ -353,7 +354,7 @@ editForm.addEventListener("submit", (e) => {
   currentlyEditing.priority = editPriority.value;
 
   // if (editTime) currentlyEditing.time =
-  generateTodos(currentlyEditing);
+  // generateTodos(currentlyEditing);
   generateTodos(selectedArray);
   editDescription.value = "";
   editDate.value = "";
@@ -444,7 +445,8 @@ allTodoTab.addEventListener("click", () => {
 });
 
 upcomingTodoTab.addEventListener("click", () => {
-  upcomingFormat();
+  // upcomingFormat();
+
   // console.log(format(new Date(allTodos[0].date), "yyyyMMdd"));
   // console.log(allTodos[0].date);
   // console.log(typeof allTodos[0].date);
@@ -452,27 +454,27 @@ upcomingTodoTab.addEventListener("click", () => {
   //   typeof parseFloat(format(new Date(allTodos[0].date), "yyyyMMdd"))
   // );
 
-  selectedArray = upcomingFormat;
+  selectedArray = upcomingFormat(allTodos);
   // const getSelectedArray = JSON.parse(localStorage.getItem("mainArray"));
 
   // const jsonSelected = JSON.stringify(selectedArray());
   // localStorage.setItem("mainArray", jsonSelected);
   // console.log(upcomingTodos);
-  console.log(upcomingFormat());
-  generateTodos(upcomingFormat());
+  // console.log(upcomingFormat());
+  generateTodos(selectedArray);
 });
 
-const upcomingFormat = () => {
-  console.log("heyo");
+// const upcomingFormat = () => {
+//   console.log("heyo");
 
-  const formatToNum = (x) => parseFloat(format(new Date(x.date), "yyyyMMdd"));
-  const upcomingTodos = allTodos.toSorted(
-    (a, b) => formatToNumber(a) - formatToNumber(b)
-  );
+//   const formatToNum = (x) => parseFloat(format(new Date(x.date), "yyyyMMdd"));
+//   const upcomingTodos = allTodos.toSorted(
+//     (a, b) => formatToNumber(a) - formatToNumber(b)
+//   );
 
-  // sortByTime(upcomingTodos);
-  return upcomingTodos;
-};
+//   // sortByTime(upcomingTodos);
+//   return upcomingTodos;
+// };
 
 const formatToNumber = (x) => {
   const date = format(new Date(x.date), "yyyyMMdd");
@@ -481,29 +483,30 @@ const formatToNumber = (x) => {
 };
 
 todayTodoTab.addEventListener("click", () => {
-  console.log(todayFormat());
-  selectedArray = todayFormat;
-  generateTodos(todayFormat());
+  console.log(todayFormat(allTodos));
+  selectedArray = todayFormat(allTodos);
+  // generateTodos(todayFormat(allTodos));
+  generateTodos(selectedArray);
 });
 
-const todayFormat = () => {
-  console.log("hi");
-  allTodos.forEach((todo) => {
-    console.log(todo.date);
-    console.log(todo.time);
-    console.log(formatToNumber(todo));
-    console.log(DateTime.fromFormat(todo.time, "h:mm a").toFormat("HHmm"));
-    if (getCurrentdate() === todo.date) {
-      console.log("the dates match!");
-    }
-  });
+// const todayFormat = () => {
+//   console.log("hi");
+//   allTodos.forEach((todo) => {
+//     console.log(todo.date);
+//     console.log(todo.time);
+//     console.log(formatToNumber(todo));
+//     console.log(DateTime.fromFormat(todo.time, "h:mm a").toFormat("HHmm"));
+//     if (getCurrentdate() === todo.date) {
+//       console.log("the dates match!");
+//     }
+//   });
 
-  console.log(getCurrentdate());
-  const todayTodos = allTodos.filter((todo) => todo.date === getCurrentdate());
-  sortByTime(todayTodos);
-  console.log(todayTodos);
-  return todayTodos;
-};
+//   console.log(getCurrentdate());
+//   const todayTodos = allTodos.filter((todo) => todo.date === getCurrentdate());
+//   sortByTime(todayTodos);
+//   console.log(todayTodos);
+//   return todayTodos;
+// };
 
 const getCurrentdate = () => {
   const date = new Date();
@@ -529,28 +532,28 @@ const formatToTime = (x) => DateTime.fromFormat(x, "h:mm a").toFormat("HHmm");
 //   "h:mm a"
 // );
 weekTodoTab.addEventListener("click", () => {
-  console.log(weekFormat());
-  selectedArray = weekFormat;
-  generateTodos(weekFormat());
+  console.log(weekFormat(allTodos));
+  selectedArray = weekFormat(allTodos);
+  generateTodos(selectedArray);
 });
 
-const weekFormat = () => {
-  console.log("hiya");
-  allTodos.forEach((todo) => {
-    console.log(todo.date);
-    console.log(format(new Date(), "MM/dd/yyyy I"));
-    console.log(format(new Date(todo.date), "yyyyMMdd I"));
-  });
+// const weekFormat = () => {
+//   console.log("hiya");
+//   allTodos.forEach((todo) => {
+//     console.log(todo.date);
+//     console.log(format(new Date(), "MM/dd/yyyy I"));
+//     console.log(format(new Date(todo.date), "yyyyMMdd I"));
+//   });
 
-  const weekTodos = allTodos.filter((todo) => {
-    const todoWeekNum = format(new Date(todo.date), "I");
-    const currentWeek = format(new Date(), "I");
-    return todoWeekNum === currentWeek;
-  });
-  weekTodos.sort((a, b) => formatToNumber(a) - formatToNumber(b));
-  return weekTodos;
-  // console.log(weekTodos);
-};
+//   const weekTodos = allTodos.filter((todo) => {
+//     const todoWeekNum = format(new Date(todo.date), "I");
+//     const currentWeek = format(new Date(), "I");
+//     return todoWeekNum === currentWeek;
+//   });
+//   weekTodos.sort((a, b) => formatToNumber(a) - formatToNumber(b));
+//   return weekTodos;
+
+// };
 
 const ProjectAddForm = document.querySelector("#project-add-form");
 const cancleProjectBtn = document.querySelector(".cancle-project-btn");
