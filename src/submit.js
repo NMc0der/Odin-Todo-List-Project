@@ -1,96 +1,29 @@
 import { DateTime } from "luxon";
 import { parseISO, format } from "date-fns";
-// import { check } from "prettier";
 import trashIcon from "./trash-can.png";
 import editIcon from "./edit.png";
 import { openForm, closeForm } from "./modal";
 import { todayFormat, weekFormat, upcomingFormat } from "./tabs";
-// import { selectedArray } from "./tabs";
 
 export default () => {};
 export { allTodos, generateTodos };
 
-// export function mySelectedArray() {
-//   return selectedArray;
-// }
-
-const todoArrays = {};
-
-// const allTodos = localStorage.getItem("mainArray")
-//   ? JSON.parse(localStorage.getItem("mainArray"))
-//   : [];
+export const allProjects = JSON.parse(localStorage.getItem("projects") || "[]");
 
 const allTodos = JSON.parse(localStorage.getItem("mainArray") || "[]");
-
-export const allProjects = JSON.parse(localStorage.getItem("projects") || "[]");
-// export const allProjects = [];
-// const allTodos = [];
 let selectedArray = allTodos;
-// const selectedArray = allTodos;
+
 const todoForm = document.querySelector(".todo-form");
 const todos = document.querySelector(".todos");
 const theTime = document.querySelector(".time");
 
-// class Todo {
-//   constructor(description, date, time, priority, createdDate) {
-//     this.description = description;
-//     this.date = date;
-//     this.time = time;
-//     this.priority = priority;
-//     this.createdDate = createdDate;
-//   }
-// }
-
-// todoForm.addEventListener("submit", (e) => {
-//   e.preventDefault();
-
-//   const description = document.querySelector("#description").value;
-//   const date = document.querySelector("#date").value;
-//   const formatedDate = format(parseISO(date), "MM/dd/yyyy");
-//   console.log(formatedDate);
-//   const priority = document.querySelector("#priority").value;
-//   const time = DateTime.fromFormat(theTime.value, "HH:mm").toFormat("h:mm a");
-
-//   const newTodo = new Todo(
-//     description,
-//     formatedDate,
-//     time,
-//     priority,
-//     getCurrentTime()
-//   );
-
-//   allTodos.push(newTodo);
-//   showTodos(allTodos);
-//   console.log(allTodos);
-//   generateTodos(allTodos);
-//   const modal = document.querySelector("#todo-form-modal");
-//   closeForm(modal);
-// });
-
-// const getTime = (data) => {
-//   const formatedTime = DateTime.fromFormat(theTime.value, "HH:mm").toFormat(
-//     "h:mm a"
-//   );
-//   console.log(formatedTime);
-//   data.time = formatedTime;
-// };
-
-// const attatchTodo = (data) => {
-//   generateTodo(data);
-// };
-
 const generateTodos = (todoArray) => {
-  console.log(typeof todoArray);
-  // typeof todoArray === "function" ? todoArray() : todoArray;
-
   todos.innerHTML = "";
   for (let i = 0; i < allTodos.length; i += 1) {
     const currentTodo = allTodos[i];
-
     currentTodo.number = `${i}`;
     localStorage.setItem("mainArray", JSON.stringify(allTodos));
     localStorage.setItem("projects", JSON.stringify(allProjects));
-    // console.log(` ${currentTodo.number}`);
   }
   for (let i = 0; i < todoArray.length; i += 1) {
     const currentTodo = todoArray[i];
@@ -118,10 +51,6 @@ const generateTodos = (todoArray) => {
     rightSection.append(editBtn);
     rightSection.append(trashBtn);
 
-    // if (todoArray === allTodos) {
-    //   currentTodo.number = `${i}`;
-    // }
-
     showPriority(container, todoArray, i);
     trashBtn.addEventListener("click", () => {
       deleteTodo(i, todoArray);
@@ -130,8 +59,6 @@ const generateTodos = (todoArray) => {
       editTodo(i, todoArray);
     });
     container.addEventListener("click", (e) => {
-      console.log(container.classList);
-      console.log(allTodos);
       if (e.target.nodeName !== "IMG") {
         showInfo(todoArray, i);
       }
@@ -140,46 +67,16 @@ const generateTodos = (todoArray) => {
 
   localStorage.setItem("mainArray", JSON.stringify(allTodos));
   localStorage.setItem("projects", JSON.stringify(allProjects));
-
-  // allProject2.forEach((project) => {
-  //   console.log("yo hello yo");
-  //   if (project.ary === selectedArray) {
-  //     console.log("yo hello yo");
-  //   }
-  // });
-
-  // projectList.innerHTML = localStorage.getItem("projectList");
-
-  // console.log(`i am selected `);
-  // console.log()
 };
 
 const deleteTodo = (index, todoArray) => {
-  console.log("hi");
   const confirmationModal = document.querySelector("#confirmation-modal");
-  // const confirmBtn = document.querySelector(".delete-confirm-btn");
-  // const cancelBtn = document.querySelector(".cancle-confirm-btn");
-
   confirmModalDisplay("Todo");
-
-  // const confirmBtns = document.querySelector(".confirm-btns");
-  // confirmBtns.innerHTML = "";
-  // const confirmBtn = document.createElement("button");
-  // confirmBtn.innerText = "Yes";
-  // confirmBtn.classList.add("confirm-btn");
-  // const cancelBtn = document.createElement("button");
-  // cancelBtn.innerText = "No";
-  // cancelBtn.classList.add("confirm-btn");
-  // confirmBtns.append(confirmBtn);
-  // confirmBtns.append(cancelBtn);
-  // confirmationModal.classList.add("active");
   const confirmBtn = document.querySelector(".yes-confirm-btn");
   const cancelBtn = document.querySelector(".no-confirm-btn");
 
-  // openForm(confirmationModal);
   confirmBtn.addEventListener("click", () => {
     closeForm(confirmationModal);
-    console.log(index);
 
     allProjects.forEach((project) => {
       console.log(project.projectArray444);
@@ -192,33 +89,21 @@ const deleteTodo = (index, todoArray) => {
       });
     });
 
-    // console.log(typeof parseFloat(todoArray[index].number));
     allTodos.splice(parseFloat(todoArray[index].number), 1);
     localStorage.setItem("mainArray", JSON.stringify(allTodos));
     localStorage.setItem("projects", JSON.stringify(allProjects));
-    console.log(todoArray);
-    console.log(allTodos);
-    // todoArray.splice(index, 1);
-    console.log(selectedArray);
 
     if (typeof selectedArray !== "function" && selectedArray !== allTodos) {
       selectedArray.splice(index, 1);
       localStorage.setItem("projects", JSON.stringify(allProjects));
-      console.log("im the array");
     }
     console.log(selectedArray);
-    // generateTodos(allTodos);
 
     generateTodos(
       typeof selectedArray === "function" ? selectedArray() : selectedArray
     );
-
-    // const myObjSeralized = JSON.stringify(selectedArray);
-
-    // localStorage.setItem("mainArray", myObjSeralized);
-
-    // console.log(selectedArray);
   });
+
   cancelBtn.addEventListener("click", () => {
     closeForm(confirmationModal);
   });
@@ -229,8 +114,6 @@ const editModal = document.querySelector("#edit-modal");
 
 const editTodo = (index, todoArray) => {
   const todo = todoArray[index];
-
-  // const todoLable = document.querySelector(".todo-lable");
   const currentTodoText = document.querySelector(".current-todo-text");
   const currentDateText = document.querySelector(".current-date-text");
   const currentTimeText = document.querySelector(".current-time-text");
@@ -241,50 +124,7 @@ const editTodo = (index, todoArray) => {
   currentPriorityText.innerHTML = `-${todo.priority}`;
   showPriority(editModal, todoArray, index);
   openForm(editModal);
-  console.log(todo);
-  console.log("the todo");
-  // const editForm = document.querySelector(".edit-form");
   currentlyEditing = todo;
-
-  // editForm.addEventListener("submit", (e) => {
-  //   e.preventDefault();
-  //   let editDescription = document.querySelector(".edit-todo").value;
-  //   console.log(editDescription);
-  //   const editDate = document.querySelector(".edit-date");
-  //   const editTime = document.querySelector(".edit-time");
-  //   const editPriority = document.querySelector(".edit-priority");
-  //   // const formatedDate = format(parseISO(editDate), "MM/dd/yyyy");
-  //   const formatedTime = DateTime.fromFormat(editTime.value, "HH:mm").toFormat(
-  //     "h:mm a"
-  //   );
-  //   console.log(todo);
-  //   if (editDescription) {
-  //     console.log(editDescription);
-  //     console.log(todo.description);
-  //     console.log("im a string");
-  //     console.log(todo);
-  //     currentlyEditing = editDescription;
-  //   }
-
-  //   if (editDate.value) {
-  //     todo.date = format(parseISO(editDate.value), "MM/dd/yyyy");
-  //   }
-  //   if (editTime.value) {
-  //     todo.time = formatedTime;
-  //   }
-  //   // if (editPriority.value)
-  //   todo.priority = editPriority.value;
-  //   // if (editTime) todo.time =
-  //   generateTodos(todoArray);
-  //   editDescription = "";
-  //   editDate.value = "";
-  //   editTime.value = "";
-  //   closeForm(editModal);
-  //   // console.log(todo);
-  //   // console.log(allTodos);
-  //   localStorage.setItem("mainArray", JSON.stringify(allTodos));
-  //   localStorage.setItem("projects", JSON.stringify(allProjects));
-  // });
 };
 
 editForm.addEventListener("submit", (e) => {
@@ -294,7 +134,6 @@ editForm.addEventListener("submit", (e) => {
   const editDate = document.querySelector(".edit-date");
   const editTime = document.querySelector(".edit-time");
   const editPriority = document.querySelector(".edit-priority");
-  // const formatedDate = format(parseISO(editDate), "MM/dd/yyyy");
   const formatedTime = DateTime.fromFormat(editTime.value, "HH:mm").toFormat(
     "h:mm a"
   );
@@ -315,15 +154,8 @@ editForm.addEventListener("submit", (e) => {
   }
 
   allProjects.forEach((project) => {
-    console.log(project);
     project.projectArray444.forEach((todo) => {
-      console.log(todo);
-      console.log(currentlyEditing);
-      console.log(JSON.stringify(todo));
-      console.log(JSON.stringify(currentlyEditing));
       if (JSON.stringify(todo) === JSON.stringify(currentlyEditing)) {
-        console.log(todo);
-        console.log("it is the same one bro!");
         if (editDescription.value) todo.description = editDescription.value;
         if (editDate.value)
           todo.date = format(parseISO(editDate.value), "MM/dd/yyyy");
@@ -335,13 +167,10 @@ editForm.addEventListener("submit", (e) => {
     });
   });
 
-  // console.log(todo);
   if (editDescription.value) {
-    // console.log(editDescription);
-    // console.log(todo.description);
     console.log("im a string");
     console.log(currentlyEditing);
-    // console.log(todo);
+
     currentlyEditing.description = editDescription.value;
   }
 
@@ -353,36 +182,31 @@ editForm.addEventListener("submit", (e) => {
   }
   currentlyEditing.priority = editPriority.value;
 
-  // if (editTime) currentlyEditing.time =
-  // generateTodos(currentlyEditing);
   generateTodos(selectedArray);
   editDescription.value = "";
   editDate.value = "";
   editTime.value = "";
   closeForm(editModal);
-  // console.log(todo);
-  // console.log(allTodos);
 
   localStorage.setItem("mainArray", JSON.stringify(allTodos));
   localStorage.setItem("projects", JSON.stringify(allProjects));
 });
 
-const showTodos = (todoArray, index) => {
-  console.log(todoArray);
-  for (let i = 0; i < todoArray.length; i += 1) {}
-};
+// const showTodos = (todoArray, index) => {
+//   console.log(todoArray);
+//   for (let i = 0; i < todoArray.length; i += 1) {}
+// };
 
 const showInfo = (todoArray, index) => {
   const descriptionText = document.querySelector(".description-text");
-  console.log(todoArray[index]);
   descriptionText.innerHTML = todoArray[index].description;
   const DueDateText = document.querySelector(".due-date-text");
   DueDateText.innerHTML = `${todoArray[index].date} - ${todoArray[index].time}`;
   const timeCreatedText = document.querySelector(".time-created");
   timeCreatedText.innerHTML = todoArray[index].createdDate;
-  // const PriorityText = document.querySelector(".priority-text");
+
   const infoModal = document.querySelector("#info-modal");
-  // infoModal.classList.add("active");
+
   openForm(infoModal);
   showPriority(infoModal, todoArray, index);
 };
@@ -397,7 +221,6 @@ const showPriority = (container, todoArray, index) => {
   const priorityText = document.querySelector(".priority-text");
   const editPriority = document.querySelector(".edit-priority");
   if (todoArray[index].priority === "Low Priority") {
-    // console.log(todoArray);
     container.classList.add("low-priority");
     container.classList.remove("medium-priority", "high-priority");
     editPriority.value = "Low Priority";
@@ -418,8 +241,6 @@ const showPriority = (container, todoArray, index) => {
   }
 };
 
-//
-
 export const getSelectedArray = () => selectedArray;
 
 const allTodoTab = document.querySelector(".all-todo-tab");
@@ -427,133 +248,59 @@ const upcomingTodoTab = document.querySelector(".upcoming-todo-tab");
 const todayTodoTab = document.querySelector(".today-todo-tab");
 const weekTodoTab = document.querySelector(".week-todo-tab");
 const addProjectBtn = document.querySelector(".project-add");
+const title = document.querySelector(".tab-title");
+
+const sideBarBtn = document.querySelector(".hamburger-input");
+const mediaQuerySmall = window.matchMedia("(max-width: 405px");
+
+const handleSmallMediaChange = (e) => {
+  console.log("yo");
+  if (e.matches) {
+    console.log("it matched again!");
+    sideBarBtn.checked = false;
+  }
+};
+
+// mediaQuerySmall.addListener(handleSmallMediaChange);
+// handleSmallMediaChange(mediaQuerySmall);
 
 allTodoTab.addEventListener("click", () => {
-  // const todosHolder = document.querySelector(".todo-holder");
-  // const title = document.createElement("h2");
-  const title = document.querySelector(".tab-title");
   title.innerText = "All Todo's";
   title.classList.add("tab-title", "all-todo-active");
-  // todosHolder.prepend(title);
+
   selectedArray = allTodos;
-  // const jsonSelected = JSON.stringify(selectedArray);
-  // localStorage.setItem("mainArray", jsonSelected);
+  // console.log(mediaQuerySmall);
+  // mediaQuerySmall.addListener(handleSmallMediaChange);
+  handleSmallMediaChange(mediaQuerySmall);
+  // sideBarBtn.checked = false;
+
+  console.log(sideBarBtn);
+  console.log("borger");
   generateTodos(allTodos);
-  // console.log(
-  //   DateTime.fromFormat(allTodos[0].date, "MM/dd/yyyy").toFormat("yyyyMMdd")
-  // );
 });
 
 upcomingTodoTab.addEventListener("click", () => {
-  // upcomingFormat();
-
-  // console.log(format(new Date(allTodos[0].date), "yyyyMMdd"));
-  // console.log(allTodos[0].date);
-  // console.log(typeof allTodos[0].date);
-  // console.log(
-  //   typeof parseFloat(format(new Date(allTodos[0].date), "yyyyMMdd"))
-  // );
-
+  title.innerText = "Upcoming Todo's";
+  handleSmallMediaChange(mediaQuerySmall);
   selectedArray = upcomingFormat(allTodos);
-  // const getSelectedArray = JSON.parse(localStorage.getItem("mainArray"));
 
-  // const jsonSelected = JSON.stringify(selectedArray());
-  // localStorage.setItem("mainArray", jsonSelected);
-  // console.log(upcomingTodos);
-  // console.log(upcomingFormat());
   generateTodos(selectedArray);
 });
-
-// const upcomingFormat = () => {
-//   console.log("heyo");
-
-//   const formatToNum = (x) => parseFloat(format(new Date(x.date), "yyyyMMdd"));
-//   const upcomingTodos = allTodos.toSorted(
-//     (a, b) => formatToNumber(a) - formatToNumber(b)
-//   );
-
-//   // sortByTime(upcomingTodos);
-//   return upcomingTodos;
-// };
-
-const formatToNumber = (x) => {
-  const date = format(new Date(x.date), "yyyyMMdd");
-  const time = DateTime.fromFormat(x.time, "h:mm a").toFormat("HHmm");
-  return parseFloat(`${date}${time}`);
-};
 
 todayTodoTab.addEventListener("click", () => {
+  title.innerText = "Today's Todo's";
   console.log(todayFormat(allTodos));
   selectedArray = todayFormat(allTodos);
-  // generateTodos(todayFormat(allTodos));
+  handleSmallMediaChange(mediaQuerySmall);
   generateTodos(selectedArray);
 });
 
-// const todayFormat = () => {
-//   console.log("hi");
-//   allTodos.forEach((todo) => {
-//     console.log(todo.date);
-//     console.log(todo.time);
-//     console.log(formatToNumber(todo));
-//     console.log(DateTime.fromFormat(todo.time, "h:mm a").toFormat("HHmm"));
-//     if (getCurrentdate() === todo.date) {
-//       console.log("the dates match!");
-//     }
-//   });
-
-//   console.log(getCurrentdate());
-//   const todayTodos = allTodos.filter((todo) => todo.date === getCurrentdate());
-//   sortByTime(todayTodos);
-//   console.log(todayTodos);
-//   return todayTodos;
-// };
-
-const getCurrentdate = () => {
-  const date = new Date();
-  const DateFormated = format(date, "MM/dd/yyyy");
-  return DateFormated;
-};
-
-const sortByTime = (ary) => {
-  ary.sort((a, b) => {
-    console.log(a.time);
-    console.log(formatToTime(a.time));
-    return formatToTime(a.time) - formatToTime(b.time);
-  });
-};
-
-// if (getCurrentdate() === todo.date) {
-//   return todo;
-// }
-
-const formatToTime = (x) => DateTime.fromFormat(x, "h:mm a").toFormat("HHmm");
-
-// const formatedTime = DateTime.fromFormat(editTime.value, "HH:mm").toFormat(
-//   "h:mm a"
-// );
 weekTodoTab.addEventListener("click", () => {
-  console.log(weekFormat(allTodos));
+  title.innerText = "Weekly Todo's";
   selectedArray = weekFormat(allTodos);
+  handleSmallMediaChange(mediaQuerySmall);
   generateTodos(selectedArray);
 });
-
-// const weekFormat = () => {
-//   console.log("hiya");
-//   allTodos.forEach((todo) => {
-//     console.log(todo.date);
-//     console.log(format(new Date(), "MM/dd/yyyy I"));
-//     console.log(format(new Date(todo.date), "yyyyMMdd I"));
-//   });
-
-//   const weekTodos = allTodos.filter((todo) => {
-//     const todoWeekNum = format(new Date(todo.date), "I");
-//     const currentWeek = format(new Date(), "I");
-//     return todoWeekNum === currentWeek;
-//   });
-//   weekTodos.sort((a, b) => formatToNumber(a) - formatToNumber(b));
-//   return weekTodos;
-
-// };
 
 const ProjectAddForm = document.querySelector("#project-add-form");
 const cancleProjectBtn = document.querySelector(".cancle-project-btn");
@@ -561,7 +308,6 @@ const projectInp = document.querySelector(".name-project-inp");
 const projectList = document.querySelector(".project-list");
 
 addProjectBtn.addEventListener("click", () => {
-  // openMiniForm(ProjectAddForm);
   projectInp.value = "";
   ProjectAddForm.style.display = "block";
   projectInp.focus();
@@ -571,21 +317,8 @@ addProjectBtn.addEventListener("click", () => {
 
 cancleProjectBtn.addEventListener("click", () => {
   ProjectAddForm.style.display = "none";
-  addProjectBtn.style.display = "block";
+  addProjectBtn.style.display = "flex";
 });
-
-// document.addEventListener("click", (e) => {
-//   console.dir(e.target);
-//   console.log(e.target.parentElement);
-//   if (
-//     !e.target.parentElement.matches("#project-add-form") &&
-//     !e.target.matches(".project-add")
-//   ) {
-//     ProjectAddForm.style.display = "none";
-//     addProjectBtn.style.display = "block";
-//     console.log("yoooo");
-//   }
-// });
 
 class Project {
   constructor(name) {
@@ -594,37 +327,19 @@ class Project {
   }
 }
 
-const allProject2 = [];
-
 ProjectAddForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  // let projectArray = [];
   const project = document.createElement("div");
   const newProject = new Project(projectInp.value);
   project.classList.add("addedProject");
   project.append(projectInp.value);
   project.addEventListener("click", () => {
-    // projectArray = projectArray.filter((todo) => allTodos.includes(todo));
-    // newProject.projectArray = projectArray;
-    console.log(newProject.projectArray444);
     newProject.projectArray444 = newProject.projectArray444.filter((todo) =>
       allTodos.includes(todo)
     );
 
-    // projectArray.forEach((proj) => {
-    //   newProject.ary.push(proj);
-    //   console.log(newProject);
-    // });
-
-    // projectArray.forEach((todo) => {
-    //   if (!allTodos.includes(todo)) {
-    //     projectArray.splice()
-    //   }
-    // });
     localStorage.setItem("projects", JSON.stringify(allProjects));
     selectedArray = newProject.projectArray444;
-    // console.log(projectArray);
-    // selectedArray = projectArray;
 
     generateTodos(selectedArray);
     generateProjects(allProjects);
@@ -633,32 +348,18 @@ ProjectAddForm.addEventListener("submit", (e) => {
   allProjects.push(newProject);
   localStorage.setItem("projects", JSON.stringify(allProjects));
   console.log(newProject);
-  // setInterval(() => {
-  //   console.log(newProject);
-  //   console.log(allProjects);
-  // }, 3000);
+
   ProjectAddForm.style.display = "none";
-  addProjectBtn.style.display = "block";
-  // allProjects.push(newProject);
-  // localStorage.setItem("allProjects", JSON.stringify(allProjects));
-  // localStorage.setItem("project", JSON.stringify(project));
+  addProjectBtn.style.display = "flex";
+
   projectList.append(project);
   generateProjects(allProjects);
-  // localStorage.setItem("projectList", projectList.outerHTML);
 });
-
-// projectList.addEventListener("click", (e) => {
-//   console.log(e.target.nodeName);
-//   if (e.target.nodeName === "DIV") {
-
-//   }
-// });
 
 export const generateProjects = (projects) => {
   console.log("hi projects");
   projectList.innerHTML = "";
   projects.forEach((project) => {
-    console.log(project);
     const tab = document.createElement("div");
     tab.classList.add("project-tab");
     tab.innerHTML = project.name;
@@ -669,39 +370,16 @@ export const generateProjects = (projects) => {
     projectList.append(tab);
 
     tab.addEventListener("click", (e) => {
+      handleSmallMediaChange(mediaQuerySmall);
+
       if (e.target.nodeName !== "IMG") {
-        console.log(project.projectArray444[0]);
-        console.log(JSON.stringify(project.projectArray444));
-        // const arrayMain = localStorage.getItem("mainarray");
-        // console.log(arrayMain);
-
-        // const mainArray = JSON.parse(localStorage.getItem("mainArray") || "[]");
-        // mainArray.forEach((arry) => {
-        //   console.log(arry);
-        //   console.log(JSON.stringify(arry));
-        //   if (
-        //     JSON.stringify(arry) === JSON.stringify(project.projectArray444[0])
-        //   ) {
-        //     console.log("hip hip huray!");
-        //   }
-        //   if (arry === project.projectArray444[0]) {
-        //     console.log("it is the same!");
-        //   }
-        // });
-
-        // project.projectArray444 = project.projectArray444.filter((todo) => {
-        //   console.log(todo);
-        //   return !mainArray.includes(todo);
-        // });
         project.projectArray444 = project.projectArray444.filter((todo) =>
           JSON.stringify(allTodos).includes(JSON.stringify(todo))
         );
-        // console.log(mainArray);
-        // console.log(allTodos);
-        console.log(project.projectArray444);
+        title.innerText = `${project.name}`;
+
         localStorage.setItem("mainArray", JSON.stringify(allTodos));
         localStorage.setItem("projects", JSON.stringify(allProjects));
-
         selectedArray = project.projectArray444;
         generateTodos(selectedArray);
       }
@@ -717,38 +395,19 @@ export const generateProjects = (projects) => {
         console.log("trash btn yo");
         console.log(projects.indexOf(project));
         projects.splice(projects.indexOf(project), 1);
-
         generateProjects(projects);
+        title.innerText = `All Todo's`;
+
         selectedArray = allTodos;
         generateTodos(selectedArray);
         closeForm(confirmationModal);
       });
+
       cancelBtn.addEventListener("click", () => {
         closeForm(confirmationModal);
       });
     });
   });
-
-  // for (let i = 0; i < projects.length; i += 1) {
-  //   console.log(projects[i]);
-  //   const tab = document.createElement("div");
-  //   tab.classList.add("project-tab");
-  //   tab.innerHTML = projects[i].name;
-  //   const trashBtn = document.createElement("img");
-  //   trashBtn.classList.add("tab-delete-btn");
-  //   trashBtn.src = trashIcon;
-  //   tab.append(trashBtn);
-  //   projectList.append(tab);
-
-  //   tab.addEventListener("click", () => {
-  //     projects[i].projectArray = projects[i].projectArray.filter((todo) =>
-  //       allTodos.includes(todo)
-  //     );
-  //     localStorage.setItem("projects", JSON.stringify(allProjects));
-  //     selectedArray = projects[i].projectArray;
-  //     generateTodos(selectedArray);
-  //   });
-  // }
 };
 
 const confirmModalDisplay = (titleText) => {
@@ -765,14 +424,5 @@ const confirmModalDisplay = (titleText) => {
   cancelBtn.classList.add("confirm-btn", "no-confirm-btn");
   confirmBtns.append(confirmBtn);
   confirmBtns.append(cancelBtn);
-  // confirmationModal.classList.add("active");
   openForm(confirmationModal);
 };
-
-// const deleteProject = () => {
-
-// }
-
-// const newProjectArray = () => {};
-
-// 2 arrays

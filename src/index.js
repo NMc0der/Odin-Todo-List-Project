@@ -13,6 +13,17 @@ import submit, {
 // const addTodoBtn = document.querySelector(".todo-add");\\
 let selected = getSelectedArray();
 
+// const mediaQuerySmall = window.matchMedia("(max-width: 405px");
+
+// const handleSmallMediaChange = (e) => {
+//   if (e.matches) {
+//     console.log("it matched again!");
+//   }
+// };
+
+// mediaQuerySmall.addListener(handleSmallMediaChange);
+// handleSmallMediaChange(mediaQuerySmall);
+
 // const myObjDesearialized = JSON.parse(localStorage.getItem("mainArray"));
 
 // myObjDesearialized.forEach((obj) => {
@@ -41,20 +52,33 @@ class Todo {
   }
 }
 
+const setError = (el, msg) => {
+  console.log("there is an error!!!");
+  // el.classList.add("form-input--error");
+  el.required = true;
+};
+
+theTime.addEventListener("click", () => {});
+
 todoForm.addEventListener("submit", (e) => {
   e.preventDefault();
   // const formData = new FormData(todoForm);
   // const data = Object.fromEntries(formData);
+  // const addTodoBtn = document.querySelector(".todo-add");
+  const description = document.querySelector("#description");
+  const date = document.querySelector("#date");
 
-  const description = document.querySelector("#description").value;
-  const date = document.querySelector("#date").value;
-  const formatedDate = format(parseISO(date), "MM/dd/yyyy");
-  console.log(formatedDate);
   const priority = document.querySelector("#priority").value;
-  const time = DateTime.fromFormat(theTime.value, "HH:mm").toFormat("h:mm a");
 
+  if (description.value === "") return setError(description);
+  if (!date.value) return setError(date);
+  if (!theTime.value) return setError(theTime);
+
+  const time = DateTime.fromFormat(theTime.value, "HH:mm").toFormat("h:mm a");
+  const formatedDate = format(parseISO(date.value), "MM/dd/yyyy");
+  console.log(formatedDate);
   const newTodo = new Todo(
-    description,
+    description.value,
     formatedDate,
     time,
     priority,
@@ -84,11 +108,22 @@ todoForm.addEventListener("submit", (e) => {
   const TodoFormModal = document.querySelector("#todo-form-modal");
   closeForm(TodoFormModal);
   console.log(selected);
+  // description.value = "";
+  removeRequired(description, date, theTime);
   // getTime(data);
   // attatchTodo(data);
   // allTodos.push(data);
   // showTodos(allTodos);
 });
+
+const removeRequired = (descriptInp, dateInp, timeInp) => {
+  descriptInp.required = false;
+  dateInp.required = false;
+  timeInp.required = false;
+  descriptInp.value = "";
+  dateInp.value = "";
+  timeInp.value = "";
+};
 
 const getCurrentTime = () => {
   const date = new Date();

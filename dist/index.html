@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Belanosima&family=Caprasimo&family=Inter&family=Poppins&family=Ysabeau+Office&display=swap"
+      rel="stylesheet"
+    />
     <title>Webpack App ></title>
     <script defer src="bundle.js"></script>
   </head>
@@ -14,24 +20,27 @@
       </header>
       <main>
         <label class="hamburger-menu">
-          <input checked type="checkbox" />
+          <input class="hamburger-input" checked type="checkbox" />
         </label>
         <div class="side-bar">
-          <nav>
-            <button class="all-todo-tab tab">All</button>
-            <button class="upcoming-todo-tab">Upcoming</button>
-            <div class="today-todo-tab">today</div>
-            <div class="week-todo-tab">week</div>
-            <h2>your projects</h2>
-            <button class="project-add">Add project</button>
+          <nav class="nav-content">
+            <div class="all-todo-tab tab main-tab">All</div>
+            <div class="upcoming-todo-tab main-tab">Upcoming</div>
+            <div class="today-todo-tab main-tab">Today</div>
+            <div class="week-todo-tab main-tab">Week</div>
+            <h2>Your Projects</h2>
+            <button class="project-add">Add Project +</button>
             <form id="project-add-form" class="mini-form" action="">
               <input
                 class="name-project-inp"
                 placeholder="Name your project"
                 type="text"
+                required
               />
-              <button type="submit" class="add-project-btn">ADD</button>
-              <button type="reset" class="cancle-project-btn">Cancle</button>
+              <div class="project-form-buttons">
+                <button type="submit" class="add-project-btn">ADD</button>
+                <button type="reset" class="cancle-project-btn">Cancle</button>
+              </div>
             </form>
             <div class="project-list">
               <!-- <div class="default-project">default</div> -->
@@ -46,30 +55,39 @@
           </div>
 
           <button data-modal-target="#todo-form-modal" class="create-todo">
-            Create Todo
+            Create Todo +
           </button>
         </div>
 
         <div class="modal active" id="todo-form-modal">
           <div class="modal-header">
             <button data-close-button class="close-button">&times;</button>
-            <div class="title">YO</div>
+            <div class="title">New Todo</div>
           </div>
 
           <form class="todo-form" action="">
             <div class="form-element">
-              <label for="description">Todo</label>
-              <input required id="description" name="description" type="text" />
+              <label class="form-lable" for="description">Todo</label>
+              <input
+                placeholder="Description:"
+                class="form-input"
+                id="description"
+                name="description"
+                type="text"
+              />
+              <span class="form-error">Please enter a description.</span>
             </div>
 
             <div class="form-element">
-              <label for="date">Due Date</label>
-              <input required id="date" name="date" type="date" />
+              <label class="form-lable" for="date">Due Date</label>
+              <input class="form-input" id="date" name="date" type="date" />
+              <span class="form-error">Please enter a date.</span>
             </div>
 
             <div class="form-element">
-              <label for="time">Time Due</label>
-              <input required id="time" class="time" type="time" />
+              <label class="form-lable" for="time">Time Due</label>
+              <input id="time" class="time form-input" type="time" />
+              <span class="form-error">Please enter a time.</span>
             </div>
 
             <!-- <div class="form-element">
@@ -78,8 +96,8 @@
             </div> -->
 
             <div class="form-element">
-              <label for="priority">Priority</label>
-              <select name="priority" id="priority">
+              <label class="form-lable" for="priority">Priority</label>
+              <select class="form-input" name="priority" id="priority">
                 <option value="Low Priority">Low</option>
                 <option value="Medium Priority">Medium</option>
                 <option value="High Priority">High</option>
@@ -106,7 +124,7 @@
         <div id="info-modal" class="modal">
           <div class="modal-header">
             <button data-close-button class="close-button">&times;</button>
-            <div class="title">YO</div>
+            <div class="title">Info</div>
           </div>
 
           <div class="modal-body">
@@ -133,7 +151,7 @@
                 >Todo <span class="current-data-text current-todo-text"></span
               ></label>
               <input
-                class="edit-todo"
+                class="edit-todo form-input"
                 id="edit-todo"
                 name="edit-todo"
                 type="text"
@@ -146,7 +164,7 @@
                 <span class="current-data-text current-date-text"></span
               ></label>
               <input
-                class="edit-date"
+                class="edit-date form-input"
                 id="edit-date"
                 name="edit-date"
                 type="date"
@@ -158,7 +176,7 @@
                 >Time Due
                 <span class="current-data-text current-time-text"></span
               ></label>
-              <input id="edit-time" class="edit-time" type="time" />
+              <input id="edit-time" class="edit-time form-input" type="time" />
             </div>
 
             <!-- <div class="form-element">
@@ -172,7 +190,7 @@
                 <span class="current-data-text current-priority-text"></span
               ></label>
               <select
-                class="edit-priority"
+                class="edit-priority form-input"
                 name="edit-priority"
                 id="edit-priority"
               >
